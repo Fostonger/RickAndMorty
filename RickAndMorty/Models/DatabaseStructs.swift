@@ -18,20 +18,21 @@ struct Info: Codable {
 }
 
 struct Episode: Codable {
-    let name: String
+    var name: String
 }
 
 struct Location: Codable {
-    let name: String
+    var name: String
     let url: String
 }
 
 struct Person: Codable {
     let id: Int
-    let name: String
+    var name: String
     let status: String
     let location: Location
     let image: String
     let episode: [String]
     let url: String
 }
+

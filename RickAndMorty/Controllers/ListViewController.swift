@@ -20,6 +20,9 @@ class ListViewController: UIViewController {
         return list
     }()
     
+    // Слушает
+    private var internetObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Запрашиваем в начале общее кол-во персонажей
@@ -48,6 +51,31 @@ class ListViewController: UIViewController {
                                                               style: .plain,
                                                               target: self,
                                                               action: #selector(didTapChangeLanguageButton))]
+        internetObserver = NotificationCenter.default.addObserver(forName: Notification.Name("Offline"), object: nil, queue: .main, using: { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+            for index in 0 ..< strongSelf.charactersCount {
+                strongSelf.characters[index] = nil
+            }
+            // И количество, чтобы потом все загрузить заново
+            strongSelf.charactersCount = 0
+            strongSelf.listOfCharacters.reloadData()
+            
+            // И запрашиваем все заново
+            DatabaseManager.shared.getDataFor(path: "character/", dataType: InfoList.self, completion: { [weak self] result in
+                switch result{
+                case .success(let info):
+                    self?.charactersCount = info.info.count
+                case .failure(let error):
+                    print(error)
+                }
+                DispatchQueue.main.async {
+                    
+                    self?.listOfCharacters.reloadData()
+                }
+            })
+        })
     }
     
     /// Switches between russian and english languages
@@ -199,6 +227,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 // До того как они появились на tableView
 extension ListViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
         for indexPath in indexPaths {
             // Обращаемся к датабейзу и загружаем персонажей
             guard let _ = self.characters[indexPath.row] else {
@@ -207,10 +236,10 @@ extension ListViewController: UITableViewDataSourcePrefetching {
                     switch result{
                     case .success(let person):
                         self?.characters[indexPath.row] = person
+                        DatabaseManager.shared.downloadImage(with: person.image.cutOff(offset: 32), completion: { _ in })
                     case .failure(let error):
                         print(error)
                     }
-                    
                 })
                 return
             }

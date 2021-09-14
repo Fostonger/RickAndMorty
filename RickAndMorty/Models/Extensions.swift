@@ -92,4 +92,44 @@ extension String {
         // Сохраняем в UserDefaults наш выбор
         DatabaseManager.shared.setLocalization(to: language)
     }
+    
+    // Датабейз принимает ссылки без доменного имени,
+    // Так что нужен метод для отрезания начала строки
+    /// Returns string that stands after given character
+    public func cutOff(lastCharacter char: Character) -> String {
+        guard var cutIndex = self.lastIndex(of: char) else {
+            return self
+        }
+        cutIndex = index(cutIndex, offsetBy: 1)
+        let path = self[cutIndex...]
+        return String(path)
+    }
+    
+    /// Returns string that stands before given character
+    public func cutOff(firstCharacter char: Character) -> String {
+        guard let cutIndex = self.firstIndex(of: char) else {
+            return self
+        }
+        let path = self[...cutIndex]
+        return String(path)
+    }
+    
+    public func cutOff(offset index: Int) -> String{
+        let cutIndex = self.index(self.startIndex, offsetBy: index)
+        let path = self[cutIndex...]
+        return String(path)
+    }
 }
+
+// Расширение на словарь для проверки наличия значения
+//extension Dictionary{
+//  func containsValue<T : Equatable>(value : T)->Bool{
+//    let contains = self.contains { (k, v) -> Bool in
+//      if let v = v as? T where v == value{
+//        return true
+//      }
+//      return false
+//    }
+//    return contains
+//  }
+//}

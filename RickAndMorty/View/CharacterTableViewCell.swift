@@ -103,8 +103,8 @@ class CharacterTableViewCell: UITableViewCell {
                                        width: 70,
                                        height: 70)
         
-        // Убираем огранияение на строки у имени
-        nameLabel.numberOfLines = 0
+        // Ставим огранияение на строки у имени (3 строки уже не умещаются)
+        nameLabel.numberOfLines = 2
         
         // Фиксируем место статуса
         statusLabel.frame = CGRect(x: nameLabel.right + 10,
@@ -163,11 +163,9 @@ class CharacterTableViewCell: UITableViewCell {
         guard !model.episode[0].isEmpty else {
             return
         }
-        // Датабейз принимает ссылки без доменного имени, так что его убираем
-        let cutEpisodeIndex = model.episode[0].index(model.episode[0].startIndex, offsetBy: 32)
-        let episodePath = model.episode[0][cutEpisodeIndex...]
+        
         // Запрашиваем у Датабейза название серии, в которой впервые появился персонаж
-        DatabaseManager.shared.getDataFor(path: String(episodePath), dataType: Episode.self, completion: { [weak self] result in
+        DatabaseManager.shared.getDataFor(path: model.episode[0].cutOff(offset: 32), dataType: Episode.self, completion: { [weak self] result in
             switch result {
             case .success(let episode):
                 // На основном потоке обновляем название серии
@@ -178,11 +176,8 @@ class CharacterTableViewCell: UITableViewCell {
                 print(error)
             }
         })
-        // По вышеописанноый причине убираем доменное имя из адреса аватарки
-        let cutIndex = model.image.index(model.image.startIndex, offsetBy: 32)
-        let path = model.image[cutIndex...]
         // Запрашиваем у Датабейза картинку
-        DatabaseManager.shared.downloadImage(with: String(path), completion: { [weak self] image in
+        DatabaseManager.shared.downloadImage(with: model.image.cutOff(offset: 32), completion: { [weak self] image in
             guard let strongSelf = self else {
                 return
             }

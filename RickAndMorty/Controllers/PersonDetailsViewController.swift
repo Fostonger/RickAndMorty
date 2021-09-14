@@ -151,12 +151,9 @@ class PersonDetailsViewController: UIViewController {
         guard !person.episode[0].isEmpty else {
             return
         }
-        // Датабейз принимает адрес без доменного имени,
-        // Так что его надо убрать из URL первой серии, в которой появился персонаж
-        let cutEpisodeIndex = person.episode[0].index(person.episode[0].startIndex, offsetBy: 32)
-        let episodePath = person.episode[0][cutEpisodeIndex...]
+        
         // Запрашиваем у Датабейза информацию о серии
-        DatabaseManager.shared.getDataFor(path: String(episodePath), dataType: Episode.self, completion: { [weak self] result in
+        DatabaseManager.shared.getDataFor(path: person.episode[0].cutOff(offset: 32), dataType: Episode.self, completion: { [weak self] result in
             switch result {
             case .success(let episode):
                 DispatchQueue.main.async {
@@ -168,11 +165,8 @@ class PersonDetailsViewController: UIViewController {
             }
         })
         
-        // По вышеуказанной причине убираем доменное имя из URL аватарки
-        let cutIndex = person.image.index(person.image.startIndex, offsetBy: 32)
-        let path = person.image[cutIndex...]
         // Запрашиваем картинку у Датабейза
-        DatabaseManager.shared.downloadImage(with: String(path), completion: { [weak self] image in
+        DatabaseManager.shared.downloadImage(with: person.image.cutOff(offset: 32), completion: { [weak self] image in
             guard let strongSelf = self else {
                 return
             }

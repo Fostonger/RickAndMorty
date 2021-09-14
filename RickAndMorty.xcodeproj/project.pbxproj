@@ -16,6 +16,9 @@
 		05603AC226E6114100154A61 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05603AC126E6114100154A61 /* CharacterTableViewCell.swift */; };
 		05603AC526E6140200154A61 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05603AC426E6140200154A61 /* DatabaseManager.swift */; };
 		05603AC826E6533500154A61 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05603AC726E6533500154A61 /* Extensions.swift */; };
+		05FA7F6C26E9FE8400525907 /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA7F6B26E9FE8400525907 /* PersonDetailsViewController.swift */; };
+		05FA7F6F26E9FEE100525907 /* DatabaseStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA7F6E26E9FEE100525907 /* DatabaseStructs.swift */; };
+		05FA7F9E26EBABBD00525907 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05FA7FA026EBABBD00525907 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,10 @@
 		05603AC126E6114100154A61 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		05603AC426E6140200154A61 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		05603AC726E6533500154A61 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		05FA7F6B26E9FE8400525907 /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewController.swift; sourceTree = "<group>"; };
+		05FA7F6E26E9FEE100525907 /* DatabaseStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStructs.swift; sourceTree = "<group>"; };
+		05FA7F9F26EBABBD00525907 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		05FA7FA226EBABC000525907 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				05603AAA26E60F0000154A61 /* ListViewController.swift */,
+				05FA7F6B26E9FE8400525907 /* PersonDetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -91,6 +99,11 @@
 		05603ABD26E60F9300154A61 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				05FA7F6E26E9FEE100525907 /* DatabaseStructs.swift */,
+				05603AA626E60F0000154A61 /* AppDelegate.swift */,
+				05603AA826E60F0000154A61 /* SceneDelegate.swift */,
+				05603AC726E6533500154A61 /* Extensions.swift */,
+				05603AC426E6140200154A61 /* DatabaseManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -98,11 +111,8 @@
 		05603ABE26E60F9D00154A61 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				05603AA626E60F0000154A61 /* AppDelegate.swift */,
-				05603AA826E60F0000154A61 /* SceneDelegate.swift */,
+				05FA7F7D26EA86B200525907 /* Strings */,
 				05603AAF26E60F0D00154A61 /* Assets.xcassets */,
-				05603AC426E6140200154A61 /* DatabaseManager.swift */,
-				05603AC726E6533500154A61 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -114,6 +124,14 @@
 				05603AB126E60F0D00154A61 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		05FA7F7D26EA86B200525907 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				05FA7FA026EBABBD00525907 /* Localizable.strings */,
+			);
+			path = Strings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +175,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 05603A9A26E60EFF00154A61;
 			productRefGroup = 05603AA426E60F0000154A61 /* Products */;
@@ -173,6 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05FA7F9E26EBABBD00525907 /* Localizable.strings in Resources */,
 				05603AB326E60F0D00154A61 /* LaunchScreen.storyboard in Resources */,
 				05603AB026E60F0D00154A61 /* Assets.xcassets in Resources */,
 				05603AAE26E60F0000154A61 /* Main.storyboard in Resources */,
@@ -191,7 +211,9 @@
 				05603AA726E60F0000154A61 /* AppDelegate.swift in Sources */,
 				05603AC526E6140200154A61 /* DatabaseManager.swift in Sources */,
 				05603AA926E60F0000154A61 /* SceneDelegate.swift in Sources */,
+				05FA7F6F26E9FEE100525907 /* DatabaseStructs.swift in Sources */,
 				05603AC226E6114100154A61 /* CharacterTableViewCell.swift in Sources */,
+				05FA7F6C26E9FE8400525907 /* PersonDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +236,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		05FA7FA026EBABBD00525907 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05FA7F9F26EBABBD00525907 /* en */,
+				05FA7FA226EBABC000525907 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -221,6 +252,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -282,6 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -345,6 +378,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LOCALIZED_STRING_MACRO_NAMES = (
+					NSLocalizedString,
+					CFCopyLocalizedString,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.foston.RickAndMorty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -363,6 +400,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LOCALIZED_STRING_MACRO_NAMES = (
+					NSLocalizedString,
+					CFCopyLocalizedString,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.foston.RickAndMorty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
