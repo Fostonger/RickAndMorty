@@ -47,7 +47,8 @@ class ListViewController: UIViewController {
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .refresh,
                                                               target: self,
                                                               action: #selector(didTapRefreshButton)),
-                                              UIBarButtonItem(title: String.language.localized(),
+                                              
+                                              UIBarButtonItem(title: String.language.rawValue.localized(),
                                                               style: .plain,
                                                               target: self,
                                                               action: #selector(didTapChangeLanguageButton))]
@@ -81,17 +82,17 @@ class ListViewController: UIViewController {
     /// Switches between russian and english languages
     @objc func didTapChangeLanguageButton() {
         // Меняем на следующий язык локализацию
-        if String.language == "en" {
-            String.changeLocalization(to: "ru")
+        if String.language == .english {
+            String.changeLocalization(to: .russian)
         }
         else {
-            String.changeLocalization(to: "en")
+            String.changeLocalization(to: .english)
         }
         // обновляем таблицу
         listOfCharacters.reloadData()
         // обновляем navigation bar
         navigationItem.title = "characters".localized()
-        navigationItem.rightBarButtonItems?[1] = UIBarButtonItem(title: String.language.localized(),
+        navigationItem.rightBarButtonItems?[1] = UIBarButtonItem(title: String.language.rawValue.localized(),
                                                                  style: .plain,
                                                                  target: self,
                                                                  action: #selector(didTapChangeLanguageButton))

@@ -51,22 +51,22 @@ enum DatabaseError: Error {
 extension String {
     
     // Получаем язык по умолчанию либо загружаем из UserDefaults
-    public static var language: String = {
+    public static var language: localization = {
         // Смотрим в UserDefaults последний использованный язык
         if let lang = DatabaseManager.shared.getLocalization() {
             let path = Bundle.main.path(forResource: lang, ofType: "lproj")
             
             guard let bundle = Bundle(path: path!) else {
-                return ""
+                return .russian
             }
             // Обновляем пакет с локализацией
             String.bundle = bundle
-            return lang
+            return String.localization(rawValue: lang) ?? .russian
         }
-        // Если не нашлось - ставим основной язык системы
+        // Если не нашлось - ставим основной язык системыdd
         let lang = Bundle.main.preferredLocalizations[0]
-        DatabaseManager.shared.setLocalization(to: lang)
-        return lang
+        DatabaseManager.shared.setLocalization(to: String.localization(rawValue: lang) ?? .russian)
+        return String.localization(rawValue: lang) ?? .russian
     }()
     private static var bundle = Bundle.main
 
@@ -77,11 +77,11 @@ extension String {
     
     
     /// Changes language to given one ("en" and "ru" currently availible)
-    public static func changeLocalization(to language: String) {
+    public static func changeLocalization(to language: String.localization) {
         // Сообщаем, какой язык мы используем теперь
         String.language = language
         // Находим путь к пакету с нужной локализацией
-        let path = Bundle.main.path(forResource: String.language, ofType: "lproj")
+        let path = Bundle.main.path(forResource: String.language.rawValue, ofType: "lproj")
         
         guard let bundle = Bundle(path: path!) else {
             return
@@ -90,7 +90,7 @@ extension String {
         // И назначаем его использование
         String.bundle = bundle
         // Сохраняем в UserDefaults наш выбор
-        DatabaseManager.shared.setLocalization(to: language)
+        DatabaseManager.shared.setLocalization(to: String.language)
     }
     
     // Датабейз принимает ссылки без доменного имени,
@@ -114,22 +114,16 @@ extension String {
         return String(path)
     }
     
+    /// Returns string that stands after given amount of characters
     public func cutOff(offset index: Int) -> String{
         let cutIndex = self.index(self.startIndex, offsetBy: index)
         let path = self[cutIndex...]
         return String(path)
     }
+    
+    public enum localization: String {
+        case russian = "ru"
+        case english = "en"
+    }
 }
 
-// Расширение на словарь для проверки наличия значения
-//extension Dictionary{
-//  func containsValue<T : Equatable>(value : T)->Bool{
-//    let contains = self.contains { (k, v) -> Bool in
-//      if let v = v as? T where v == value{
-//        return true
-//      }
-//      return false
-//    }
-//    return contains
-//  }
-//}

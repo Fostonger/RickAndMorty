@@ -249,9 +249,9 @@ extension DatabaseManager {
     }
     
     // Для сохранения последней локализации
-    /// Sets new localization as a String to UserDefaults
-    public func setLocalization(to lang: String) {
-        UserDefaults.standard.setValue(lang, forKey: "Localization")
+    /// Sets new localization to UserDefaults. Choose one from enum
+    public func setLocalization(to lang: String.localization) {
+        UserDefaults.standard.setValue(lang.rawValue, forKey: "Localization")
     }
     
     // Для получения последней локализации
